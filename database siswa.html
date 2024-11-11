@@ -1,0 +1,38 @@
+CREATE TABLE Kelas (
+    id_kelas INT AUTO_INCREMENT PRIMARY KEY,
+    nama_kelas VARCHAR(50),
+    wali_kelas_id INT,
+    FOREIGN KEY (wali_kelas_id) REFERENCES Guru(id_guru)
+);
+
+CREATE TABLE Siswa (
+    id_siswa INT AUTO_INCREMENT PRIMARY KEY,
+    nama VARCHAR(100),
+    nis VARCHAR(20),
+    kelas_id INT,
+    alamat VARCHAR(255),
+    FOREIGN KEY (kelas_id) REFERENCES Kelas(id_kelas)
+);
+
+CREATE TABLE Presensi (
+    id_presensi INT AUTO_INCREMENT PRIMARY KEY,
+    siswa_id INT,
+    tanggal DATE,
+    status ENUM('Hadir', 'Sakit', 'Izin', 'Alpa'),
+    jam_masuk TIME,
+    jam_keluar TIME,
+    FOREIGN KEY (siswa_id) REFERENCES Siswa(id_siswa)
+);
+
+CREATE TABLE Guru (
+    id_guru INT AUTO_INCREMENT PRIMARY KEY,
+    nama_guru VARCHAR(100),
+    nip VARCHAR(20),
+    mata_pelajaran_id INT,
+    FOREIGN KEY (mata_pelajaran_id) REFERENCES MataPelajaran(id_mapel)
+);
+
+CREATE TABLE MataPelajaran (
+    id_mapel INT AUTO_INCREMENT PRIMARY KEY,
+    nama_mapel VARCHAR(50)
+);
